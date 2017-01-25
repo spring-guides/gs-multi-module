@@ -1,0 +1,188 @@
+---
+tags: [spring-boot, maven, gradle]
+projects: [spring-boot]
+---
+:toc:
+:icons: font
+:source-highlighter: prettify
+:project_id: draft-gs-multi-module
+
+This guide shows you how to create a multi-module project with Spring Boot, in which there is a library jar and a main application that uses the library. You could also use it just to see how to build a library on its own (i.e. a jar file that is not an application).
+
+== What you'll build
+
+You'll setup a simple library jar that exposes a service for simple Hello World messages, and then include the service in a web application that uses the library as a dependency. You can use the guide to learn how to do the same thing with Maven and with Gradle, but for a real project you would probably choose one or the other.
+
+== What you'll need
+
+:java_version: 1.8
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_system_intro.adoc[]
+
+== Create a Root Project
+
+=== Create the directory structure
+
+In a project directory of your choosing, create the following subdirectory structure; for example, with `mkdir library application` on *nix systems:
+
+    └── library
+    └── application
+
+In the root of the project you will need to set up a build system, and this guide shows you how to use Maven or Gradle.
+
+[[reveal-gradle]]
+[.reveal-gradle]
+=== Build with Gradle
+
+[[scratch]]
+[.use-gradle]
+=== Build with Gradle
+
+We recommend using the https://docs.gradle.org/current/userguide/gradle_wrapper.html[Gradle wrapper]. So install the wrapper by copying it from an existing project, or by executing Gradle with the `wrapper` task (follow instructions in the Gradle documentation). That should get you a top level directory that looks like this:
+
+    └── library
+    └── application
+    └── gradlew
+    └── gradlew.bat
+    └── gradle
+        └── wrapper
+            └── gradle-wrapper.properties
+            └── gradle-wrapper.jar
+
+Windows (non-Cygwin) users execute the `gradlew.bat` script to build the project; everyone else uses the `gradlew` script. Then add a `settings.gradle` to the root directory to drive the build at the top level:
+
+`settings.gradle`
+// AsciiDoc source formatting doesn't support groovy, so using java instead
+[source,java]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/settings.gradle[]
+----
+
+[[reveal-maven]]
+[.reveal-maven]
+=== Build with Maven
+
+[[use-maven]]
+[.use-maven]
+=== Build with Maven
+
+We recommend using the https://github.com/takari/maven-wrapper[Maven wrapper]. So install the wrapper by copying it from an existing project, or by executing Maven with the `io.takari:maven:wrapper` goal (follow instructions in the wrapper documentation). That should get you a top level directory that looks like this:
+
+    └── library
+    └── application
+    └── mvnw
+    └── mvnw.cmd
+    └── .mvn
+        └── wrapper
+            └── maven-wrapper.properties
+            └── maven-wrapper.jar
+
+Windows (non-Cygwin) users execute the `mvnw.cmd` script to build the project; everyone else uses the `mvnw` script. Then add a `pom.xml` to the root directory to drive the build at the top level:
+
+`pom.xml`
+[source,xml]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/pom.xml[]
+----
+
+== Create a Library Project
+
+=== Create the directory structure
+
+In a project directory of your choosing, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello/service` on *nix systems:
+
+    └── src
+        └── main
+            └── java
+                └── hello
+                    └── service
+
+Now we need to configure a build tool (Maven or Gradle). To get you started quickly, here is the complete configuration:
+
+[[reveal-gradle]]
+[.reveal-gradle]
+=== Build with Gradle
+
+[[scratch]]
+[.use-gradle]
+=== Build with Gradle
+
+`library/build.gradle`
+// AsciiDoc source formatting doesn't support groovy, so using java instead
+[source,java]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/library/build.gradle[]
+----
+
+[[reveal-maven]]
+[.reveal-maven]
+=== Build with Maven
+
+[[use-maven]]
+[.use-maven]
+=== Build with Maven
+
+`library/pom.xml`
+[source,xml]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/library/pom.xml[]
+----
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-maven-plugin.adoc[]
+
+== Create an Application Project
+
+=== Create the directory structure
+
+In a the application directory, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello/app` on *nix systems:
+
+    └── src
+        └── main
+            └── java
+                └── hello
+                    └── app
+
+Now comes the build configuration:
+
+[[reveal-gradle]]
+[.reveal-gradle]
+=== Build with Gradle
+
+[[scratch]]
+[.use-gradle]
+=== Build with Gradle
+
+`library/build.gradle`
+// AsciiDoc source formatting doesn't support groovy, so using java instead
+[source,java]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/library/build.gradle[]
+----
+
+[[reveal-maven]]
+[.reveal-maven]
+=== Build with Maven
+
+[[use-maven]]
+[.use-maven]
+=== Build with Maven
+
+`library/pom.xml`
+[source,xml]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/library/pom.xml[]
+----
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-maven-plugin.adoc[]
+
+== Test the application
+
+Test the end-to-end result by starting the application. Visit the client app in the browser, `http://localhost:8080/`. There, you should see the String `Hello World` reflected in the response.
+
+== Summary
+Congratulations! You've just used Spring Boot to create a re-usable library, and then used it to build an application.
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]

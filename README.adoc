@@ -35,11 +35,11 @@ In the root of the project you will need to set up a build system, and this guid
 
 [[reveal-gradle]]
 [.reveal-gradle]
-=== Build with Gradle
+== Build with Gradle
 
-[[scratch]]
+[[reveal-gradle]]
 [.use-gradle]
-=== Build with Gradle
+== Build with Gradle
 
 We recommend using the https://docs.gradle.org/current/userguide/gradle_wrapper.html[Gradle wrapper]. So install the wrapper by copying it from an existing project, or by executing Gradle with the `wrapper` task (follow instructions in the Gradle documentation). That should get you a top level directory that looks like this:
 
@@ -63,11 +63,11 @@ include::initial/settings.gradle[]
 
 [[reveal-maven]]
 [.reveal-maven]
-=== Build with Maven
+== Build with Maven
 
 [[use-maven]]
 [.use-maven]
-=== Build with Maven
+== Build with Maven
 
 We recommend using the https://github.com/takari/maven-wrapper[Maven wrapper]. So install the wrapper by copying it from an existing project, or by executing Maven with the `io.takari:maven:wrapper` goal (follow instructions in the wrapper documentation). That should get you a top level directory that looks like this:
 
@@ -104,11 +104,11 @@ Now we need to configure a build tool (Maven or Gradle). In both cases note that
 
 [[reveal-gradle]]
 [.reveal-gradle]
-=== Build with Gradle
+== Build with Gradle
 
-[[scratch]]
+[[reveal-gradle]]
 [.use-gradle]
-=== Build with Gradle
+== Build with Gradle
 
 `library/build.gradle`
 // AsciiDoc source formatting doesn't support groovy, so using java instead
@@ -121,11 +121,11 @@ Although the Spring Boot Gradle plugin is not being used, you do want to take ad
 
 [[reveal-maven]]
 [.reveal-maven]
-=== Build with Maven
+== Build with Maven
 
 [[use-maven]]
 [.use-maven]
-=== Build with Maven
+== Build with Maven
 
 `library/pom.xml`
 [source,xml]
@@ -191,11 +191,11 @@ Do not use the same package as the library (or a parent of the library package) 
 
 [[reveal-gradle]]
 [.reveal-gradle]
-=== Build with Gradle
+== Build with Gradle
 
-[[scratch]]
+[[reveal-gradle]]
 [.use-gradle]
-=== Build with Gradle
+== Build with Gradle
 
 `application/build.gradle`
 // AsciiDoc source formatting doesn't support groovy, so using java instead
@@ -208,11 +208,11 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 [[reveal-maven]]
 [.reveal-maven]
-=== Build with Maven
+== Build with Maven
 
 [[use-maven]]
 [.use-maven]
-=== Build with Maven
+== Build with Maven
 
 `application/pom.xml`
 [source,xml]

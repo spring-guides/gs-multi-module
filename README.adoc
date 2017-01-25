@@ -58,7 +58,7 @@ Windows (non-Cygwin) users execute the `gradlew.bat` script to build the project
 // AsciiDoc source formatting doesn't support groovy, so using java instead
 [source,java]
 ----
-include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/settings.gradle[]
+include::initial/settings.gradle[]
 ----
 
 [[reveal-maven]]
@@ -85,7 +85,7 @@ Windows (non-Cygwin) users execute the `mvnw.cmd` script to build the project; e
 `pom.xml`
 [source,xml]
 ----
-include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/pom.xml[]
+include::initial/pom.xml[]
 ----
 
 == Create a Library Project
@@ -100,7 +100,7 @@ In a project directory of your choosing, create the following subdirectory struc
                 └── hello
                     └── service
 
-Now we need to configure a build tool (Maven or Gradle). To get you started quickly, here is the complete configuration:
+Now we need to configure a build tool (Maven or Gradle). In both cases note that the Spring Boot plugin is *not* used in the library project at all. The main function of the plugin is to create an executable "über-jar" which we don't need (and don't want) for a library. To get you started quickly, here is the complete configuration:
 
 [[reveal-gradle]]
 [.reveal-gradle]
@@ -114,8 +114,10 @@ Now we need to configure a build tool (Maven or Gradle). To get you started quic
 // AsciiDoc source formatting doesn't support groovy, so using java instead
 [source,java]
 ----
-include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/library/build.gradle[]
+include::initial/library/build.gradle[]
 ----
+
+Although the Spring Boot Gradle plugin is not being used, you do want to take advantage of Spring Boot dependency management, so that is configured using the `dependency-management` plugin and the `mavenBom` from Spring Boot.
 
 [[reveal-maven]]
 [.reveal-maven]
@@ -128,10 +130,50 @@ include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/ini
 `library/pom.xml`
 [source,xml]
 ----
-include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/library/pom.xml[]
+include::initial/library/pom.xml[]
 ----
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-maven-plugin.adoc[]
+Although the Spring Boot Maven plugin is not being used, you do want to take advantage of Spring Boot dependency management, so that is configured using the `spring-boot-starter-parent` from Spring Boot as a parent project. An alternative would be to import the dependency management as a Bill of Materials https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies[(BOM)] in the `<dependencyManagement/>` section of the POM.
+
+== Create a Service Component
+
+The library will provide a `Service` class that can be used by applications that depend on the library:
+
+`library/src/main/java/hello/service/Service.java`
+[source,java]
+----
+include::complete/library/src/main/java/hello/service/Service.java[]
+----
+
+To make it configurable in a standard Spring Boot idiom (with `application.properties`) you can also add a `@ConfigurationProperties` class:
+
+`library/src/main/java/hello/service/ServiceProperties.java`
+[source,java]
+----
+include::complete/library/src/main/java/hello/service/ServiceProperties.java[]
+----
+
+And to provide a way to include the service and its configuration together in an application, you can also provide a `@Configuration`:
+
+`library/src/main/java/hello/service/ServiceConfiguration.java`
+[source,java]
+----
+include::complete/library/src/main/java/hello/service/ServiceConfiguration.java[]
+----
+
+You don't have to do it this way: a library might just provide pure Java APIs, and no Spring features. In that case the application that consumes the library would need to provide the configuration itself.
+
+== Testing the Service Component
+
+You will want to write unit tests for your library components. If you are providing re-usable Spring configuration as part of the library, you might also want to write an integration test, to make sure that the configuration works. To do that you can use JUnit and the `@SpringBootTest` annotation. For example:
+
+`library/src/test/java/hello/service/ServiceTest.java`
+[source,java]
+----
+include::complete/library/src/test/java/hello/service/ServiceTest.java[]
+----
+
+NOTE: In the sample above we have configured the `service.message` for the test using the default attribute of the `@SpringBootTest` annotation. It is *not* advisable to put `application.properties` in a library because there might be a clash at runtime in the application that uses it (only one `application.properties` is ever loaded from the classpath). You *could* put `application.properties` in the test classpath, but not include it in the jar, for instance by placing it in `src/test/resources`.
 
 == Create an Application Project
 
@@ -145,7 +187,7 @@ In a the application directory, create the following subdirectory structure; for
                 └── hello
                     └── app
 
-Now comes the build configuration:
+Do not use the same package as the library (or a parent of the library package) unless you want to include all Spring components in the library by `@ComponentScan` by default in the application. Now comes the build configuration:
 
 [[reveal-gradle]]
 [.reveal-gradle]
@@ -155,12 +197,14 @@ Now comes the build configuration:
 [.use-gradle]
 === Build with Gradle
 
-`library/build.gradle`
+`application/build.gradle`
 // AsciiDoc source formatting doesn't support groovy, so using java instead
 [source,java]
 ----
-include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/library/build.gradle[]
+include::initial/application/build.gradle[]
 ----
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-gradle-plugin.adoc[]
 
 [[reveal-maven]]
 [.reveal-maven]
@@ -170,13 +214,34 @@ include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/ini
 [.use-maven]
 === Build with Maven
 
-`library/pom.xml`
+`application/pom.xml`
 [source,xml]
 ----
-include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/library/pom.xml[]
+include::initial/application/pom.xml[]
 ----
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-maven-plugin.adoc[]
+
+== Write the Application
+
+The main class in the application can be a `@RestController` that uses the `Service` from the library to render a message. To do that you need to `@Import` the `ServiceConfiguration` from the library. For example:
+
+`application/src/main/java/hello/app/DemoApplication.java`
+[source,java]
+----
+include::complete/application/src/main/java/hello/app/DemoApplication.java[]
+----
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-application.adoc[]
+
+== Create the `application.properties` file
+
+We need to provide a message for the service in the library via `application.properties`. In the sources folder, you just need to create a file `src/main/resources/application.properties`:
+
+[source, java]
+----
+include::complete/application/src/main/resources/application.properties[]
+----
 
 == Test the application
 

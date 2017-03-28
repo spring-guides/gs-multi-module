@@ -22,6 +22,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_system_intro.adoc[]
 
+[[scratch]]
 == Create a Root Project
 
 === Create the directory structure
@@ -88,11 +89,12 @@ Windows (non-Cygwin) users execute the `mvnw.cmd` script to build the project; e
 include::initial/pom.xml[]
 ----
 
+[[initial]]
 == Create a Library Project
 
 === Create the directory structure
 
-In a project directory of your choosing, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello/service` on *nix systems:
+In a the "library" directory, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello/service` on *nix systems:
 
     └── src
         └── main
@@ -179,7 +181,7 @@ NOTE: In the sample above we have configured the `service.message` for the test 
 
 === Create the directory structure
 
-In a the application directory, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello/app` on *nix systems:
+In a the "application" directory, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello/app` on *nix systems:
 
     └── src
         └── main

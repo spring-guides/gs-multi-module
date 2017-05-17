@@ -1,13 +1,16 @@
 buildscript {
-    repositories { mavenCentral() }
+    ext { springBootVersion = '2.0.0.M1' }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
 }
-
-plugins { id "io.spring.dependency-management" version "1.0.0.RELEASE" }
-
-ext { springBootVersion = '1.5.2.RELEASE' }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'gs-multi-module-library'
@@ -15,7 +18,11 @@ jar {
 }
 sourceCompatibility = 1.8
 
-repositories { mavenCentral() }
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter')

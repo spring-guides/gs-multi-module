@@ -1,20 +1,29 @@
 buildscript {
-    ext { springBootVersion = '1.5.2.RELEASE' }
-    repositories { mavenCentral() }
+    ext { springBootVersion = '2.0.0.M1' }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
     dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
-jar {
+bootJar {
     baseName = 'gs-multi-module-application'
     version = '0.0.1-SNAPSHOT'
 }
 sourceCompatibility = 1.8
 
-repositories { mavenCentral() }
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')

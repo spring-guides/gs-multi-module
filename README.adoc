@@ -276,4 +276,11 @@ Build the library first and then run the application. From the top level:
 == Summary
 Congratulations! You've just used Spring Boot to create a re-usable library, and then used it to build an application.
 
+== See Also
+
+The following guides may also be helpful:
+
+* https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot]
+* https://spring.io/guides/gs/centralized-configuration/[Centralized Configuration]
+
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]

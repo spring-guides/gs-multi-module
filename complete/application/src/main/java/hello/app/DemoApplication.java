@@ -1,30 +1,24 @@
 package hello.app;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import hello.service.MyService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hello.service.Service;
-import hello.service.ServiceConfiguration;
-
-@SpringBootApplication
-@Import(ServiceConfiguration.class)
+@SpringBootApplication(scanBasePackages = "hello", scanBasePackageClasses = )
 @RestController
 public class DemoApplication {
 
-    private final Service service;
+    private final MyService myService;
 
-    @Autowired
-    public DemoApplication(Service service) {
-        this.service = service;
+    public DemoApplication(MyService myService) {
+        this.myService = myService;
     }
 
     @GetMapping("/")
     public String home() {
-        return service.message();
+        return myService.message();
     }
 
     public static void main(String[] args) {

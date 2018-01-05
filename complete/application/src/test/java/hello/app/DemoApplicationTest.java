@@ -8,18 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import hello.service.Service;
+import hello.service.MyService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTest {
 
     @Autowired
-    private Service service;
+    private MyService myService;
 
     @Test
     public void contextLoads() {
-        assertThat(service).isNotNull();
+        assertThat(myService).isNotNull();
     }
 
 }

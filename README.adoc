@@ -139,12 +139,12 @@ Although the Spring Boot Maven plugin is not being used, you do want to take adv
 
 == Create a Service Component
 
-The library will provide a `Service` class that can be used by applications that depend on the library:
+The library will provide a `MyService` class that can be used by applications that depend on the library:
 
-`library/src/main/java/hello/service/Service.java`
+`library/src/main/java/hello/service/MyService.java`
 [source,java]
 ----
-include::complete/library/src/main/java/hello/service/Service.java[]
+include::complete/library/src/main/java/hello/service/MyService.java[]
 ----
 
 To make it configurable in a standard Spring Boot idiom (with `application.properties`) you can also add a `@ConfigurationProperties` class:
@@ -153,14 +153,6 @@ To make it configurable in a standard Spring Boot idiom (with `application.prope
 [source,java]
 ----
 include::complete/library/src/main/java/hello/service/ServiceProperties.java[]
-----
-
-And to provide a way to include the service and its configuration together in an application, you can also provide a `@Configuration`:
-
-`library/src/main/java/hello/service/ServiceConfiguration.java`
-[source,java]
-----
-include::complete/library/src/main/java/hello/service/ServiceConfiguration.java[]
 ----
 
 You don't have to do it this way: a library might just provide pure Java APIs, and no Spring features. In that case the application that consumes the library would need to provide the configuration itself.
@@ -226,7 +218,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 == Write the Application
 
-The main class in the application can be a `@RestController` that uses the `Service` from the library to render a message. To do that you need to `@Import` the `ServiceConfiguration` from the library. For example:
+The main class in the application can be a `@RestController` that uses the `Service` from the library to render a message. For example:
 
 `application/src/main/java/hello/app/DemoApplication.java`
 [source,java]
@@ -235,6 +227,12 @@ include::complete/application/src/main/java/hello/app/DemoApplication.java[]
 ----
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-application.adoc[]
+
+Because `DemoApplication` is inside a different package (`hello.app`) than `MyService` (`hello.service`), `@SpringBootApplication` won't detect it initially. There are different ways to allow `MyService to be picked up:
+
+* Import it directly with `@Import(MyService.class)`.
+* Fetch everything from it's package using `@SpringBootApplication(scanBasePackageClasses={...})`.
+* The method this guide uses--specifying the parent package by name, `hello`.
 
 == Create the `application.properties` file
 

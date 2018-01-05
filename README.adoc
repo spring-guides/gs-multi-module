@@ -161,10 +161,10 @@ You don't have to do it this way: a library might just provide pure Java APIs, a
 
 You will want to write unit tests for your library components. If you are providing re-usable Spring configuration as part of the library, you might also want to write an integration test, to make sure that the configuration works. To do that you can use JUnit and the `@SpringBootTest` annotation. For example:
 
-`library/src/test/java/hello/service/ServiceTest.java`
+`library/src/test/java/hello/service/MyServiceTest.java`
 [source,java]
 ----
-include::complete/library/src/test/java/hello/service/ServiceTest.java[]
+include::complete/library/src/test/java/hello/service/MyServiceTest.java[]
 ----
 
 NOTE: In the sample above we have configured the `service.message` for the test using the default attribute of the `@SpringBootTest` annotation. It is *not* advisable to put `application.properties` in a library because there might be a clash at runtime in the application that uses it (only one `application.properties` is ever loaded from the classpath). You *could* put `application.properties` in the test classpath, but not include it in the jar, for instance by placing it in `src/test/resources`.

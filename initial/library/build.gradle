@@ -2,9 +2,9 @@ buildscript {
     repositories { mavenCentral() }
 }
 
-plugins { id "io.spring.dependency-management" version "1.0.4.RELEASE" }
+plugins { id "io.spring.dependency-management" version "1.0.5.RELEASE" }
 
-ext { springBootVersion = '2.0.1.RELEASE' }
+ext { springBootVersion = '2.0.2.RELEASE' }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'

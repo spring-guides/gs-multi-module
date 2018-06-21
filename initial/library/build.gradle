@@ -9,7 +9,7 @@ ext { springBootVersion = '2.0.3.RELEASE' }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-jar {
+bootJar {
     baseName = 'gs-multi-module-library'
     version = '0.0.1-SNAPSHOT'
 }

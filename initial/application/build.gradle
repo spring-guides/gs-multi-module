@@ -13,7 +13,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-jar {
+bootJar {
     baseName = 'gs-multi-module-application'
     version = '0.0.1-SNAPSHOT'
 }

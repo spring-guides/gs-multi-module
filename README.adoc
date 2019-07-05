@@ -230,6 +230,8 @@ Because `DemoApplication` is inside a different package (`hello.app`) than `MySe
 * Fetch everything from it's package using `@SpringBootApplication(scanBasePackageClasses={...})`.
 * The method this guide uses--specifying the parent package by name, `hello`.
 
+NOTE: If your application also uses JPA or Spring Data, note that the `@EntityScan` and `@EnableJpaRepositories` (and friends) annotations only inherit their base package from `@SpringBootApplication` when not explicitly specified. I.e. once you specify `scanBasePackageClasses` or `scanBasePackages` you might also have to also explicitly provide `@EntityScan` and `@EnableJpaRepositories` with their package scans explicitly configured.
+
 == Create the `application.properties` file
 
 We need to provide a message for the service in the library via `application.properties`. In the sources folder, you just need to create a file `src/main/resources/application.properties`:

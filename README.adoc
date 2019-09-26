@@ -3,17 +3,19 @@
 :source-highlighter: prettify
 :project_id: draft-gs-multi-module
 
-This guide shows you how to create a multi-module project with Spring Boot, in which there is a library jar and a main application that uses the library. You could also use it just to see how to build a library on its own (i.e. a jar file that is not an application).
+This guide shows you how to create a multi-module project with Spring Boot. The project
+will have have a library jar and a main application that uses the library. You could also
+use it to see how to build a library (that is, a jar file that is not an application) on
+its own.
 
-== What you'll build
+== What You Will Build
 
-You'll setup a simple library jar that exposes a service for simple Hello World messages, and then include the service in a web application that uses the library as a dependency. You can use the guide to learn how to do the same thing with Maven and with Gradle, but for a real project you would probably choose one or the other.
+You will set up a library jar that exposes a service for simple "`Hello, World`" messages
+and then include the service in a web application that uses the library as a dependency.
 
-== What you'll need
+== What You Need
 
 :java_version: 1.8
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
-
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_system_intro.adoc[]
@@ -21,256 +23,385 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Create a Root Project
 
-=== Create the directory structure
+This guide walks through building two projects, one of which is a dependency to the other.
+Consequently, you need to create two child projects under a root project.
 
-In a project directory of your choosing, create the following subdirectory structure; for example, with `mkdir library application` on *nix systems:
+=== Create the Directory Structure
 
-    └── library
-    └── application
-
-In the root of the project you will need to set up a build system, and this guide shows you how to use Maven or Gradle.
-
-[[reveal-gradle]]
-[.reveal-gradle]
-== Gradle Configuration for Multi Module Project
-
-[[reveal-gradle]]
-[.use-gradle]
-== Gradle Configuration for Multi Module Project
-
-We recommend using the https://docs.gradle.org/current/userguide/gradle_wrapper.html[Gradle wrapper]. So install the wrapper by copying it from an existing project, or by executing Gradle with the `wrapper` task (follow instructions in the Gradle documentation). That should get you a top level directory that looks like this:
+In the directory that you want to be your root directory, create the following
+subdirectory structure (for example, with `mkdir library application` on *nix systems):
 
     └── library
     └── application
-    └── gradlew
-    └── gradlew.bat
-    └── gradle
-        └── wrapper
-            └── gradle-wrapper.properties
-            └── gradle-wrapper.jar
 
-Windows (non-Cygwin) users execute the `gradlew.bat` script to build the project; everyone else uses the `gradlew` script. Then add a `settings.gradle` to the root directory to drive the build at the top level:
+In the root of the project, you will need to set up a build system, and this guide shows
+you how to use Maven or Gradle.
 
-`settings.gradle`
-// AsciiDoc source formatting doesn't support groovy, so using java instead
-[source,java]
-----
-include::initial/settings.gradle[]
-----
+[[initial]
+== Starting with Spring Initializr
 
-[[reveal-maven]]
-[.reveal-maven]
-== Maven Configuration for Multi Module Project
+For all Spring applications, you should start with the https://start.spring.io[Spring
+Initializr]. The Initializr offers a fast way to pull in all the dependencies you need for
+an application and does a lot of the set up for you. For this guide, you need to run the
+Spring Initializr  twice, once for the Library and once for the Application. The following
+topics describe how to use the Spring Initializr for each of the two projects in this
+guide:
 
-[[use-maven]]
-[.use-maven]
-== Maven Configuration for Multi Module Project
+* <<setting-up-the-library-project>>
+* <<setting-up-the-application-project>>
 
-We recommend using the https://github.com/takari/maven-wrapper[Maven wrapper]. So install the wrapper by copying it from an existing project, or by executing Maven with the `io.takari:maven:wrapper` goal (follow instructions in the wrapper documentation). That should get you a top level directory that looks like this:
+== Create the Library Project
 
-    └── library
-    └── application
-    └── mvnw
-    └── mvnw.cmd
-    └── .mvn
-        └── wrapper
-            └── maven-wrapper.properties
-            └── maven-wrapper.jar
+One of the two projects serves as a library that the other project (the application) will
+use.
 
-Windows (non-Cygwin) users execute the `mvnw.cmd` script to build the project; everyone else uses the `mvnw` script. Then add a `pom.xml` to the root directory to drive the build at the top level:
+=== Create the Directory Structure
 
-`pom.xml`
-[source,xml]
-----
-include::initial/pom.xml[]
-----
-
-[[initial]]
-== Create a Library Project
-
-=== Create the directory structure
-
-In a the "library" directory, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello/service` on *nix systems:
+In a the `library` directory, create the following subdirectory structure (for example,
+by using `mkdir -p src/main/java/com/example/multimodule/service` on *nix systems):
 
     └── src
         └── main
             └── java
-                └── hello
-                    └── service
+                └── com
+                    └── example
+                        └── multimodule
+                            └── service
 
-Now we need to configure a build tool (Maven or Gradle). In both cases note that the Spring Boot plugin is *not* used in the library project at all. The main function of the plugin is to create an executable "über-jar" which we don't need (and don't want) for a library. To get you started quickly, here is the complete configuration:
+Now you need to configure a build tool (Maven or Gradle). In both cases, note that the
+Spring Boot plugin is *not* used in the library project at all. The main function of the
+plugin is to create an executable "`über-jar`", which we neither need nor want for a
+library.
 
-[[reveal-gradle]]
-[.reveal-gradle]
-== Gradle Configuration for Library
+Although the Spring Boot Maven plugin is not being used, you do want to take advantage of
+Spring Boot dependency management, so that is configured by using the
+`spring-boot-starter-parent` from Spring Boot as a parent project. An alternative would be
+to import the dependency management as a Bill of Materials
+https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies[(BOM)]
+in the `<dependencyManagement/>` section of the `pom.xml` file.
 
-[[reveal-gradle]]
-[.use-gradle]
-== Gradle Configuration for Library
+[[setting-up-the-library-project]]
+=== Setting up the Library Project
 
-`library/build.gradle`
-// AsciiDoc source formatting doesn't support groovy, so using java instead
-[source,java]
-----
-include::initial/library/build.gradle[]
-----
+For the Library project, you need not add dependencies. The basic `spring-boot-starter`
+dependency provides everything you need. The following image shows the Initializr set up
+for the Library project:
 
-Although the Spring Boot Gradle plugin is not being used, you do want to take advantage of Spring Boot dependency management, so that is configured using the `dependency-management` plugin and the `mavenBom` from Spring Boot.
+image::images/initializr-library.png[]
 
-[[reveal-maven]]
-[.reveal-maven]
-== Maven Configuration for Library
+NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
+can also use Gradle. It also shows values of `com.example` and `multi-module-library`
+as the Group and Artifact, respectively. You will use those values throughout the rest of
+this sample.
 
-[[use-maven]]
-[.use-maven]
-== Maven Configuration for Library
+The following listing shows the `pom.xml` file that is created when you choose Maven:
 
-`library/pom.xml`
-[source,xml]
+====
+[src,xml]
 ----
 include::initial/library/pom.xml[]
 ----
+====
 
-Although the Spring Boot Maven plugin is not being used, you do want to take advantage of Spring Boot dependency management, so that is configured using the `spring-boot-starter-parent` from Spring Boot as a parent project. An alternative would be to import the dependency management as a Bill of Materials https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies[(BOM)] in the `<dependencyManagement/>` section of the POM.
+The following listing shows the `build.gradle` file that is created when you choose Gradle:
+
+====
+[src,java]
+----
+include::initial/library/build.gradle[]
+----
+====
+
+==== Adjusting the Library Project
+
+The Library project has no class with a main method (because it is not an application).
+Consequently, you have to tell the build system to not try to build an executable jar for
+the Library project. (By default, the Spring Initializr builds executable projects.)
+
+To tell Maven to not build an executable jar for the Library project, you must remove the
+following block from the `pom.xml` created by the Spring Initializr:
+
+====
+[source,xml]
+----
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId>
+    </plugin>
+  </plugins>
+</build>
+----
+====
+
+The following listing shows the final `pom.xml` file for the Library project:
+
+====
+[src,xml]
+----
+include::complete/library/pom.xml[]
+----
+====
+
+To tell Gradle to not build an executable jar for the Library project, you must add the
+following blocks to the `build.gradle` created by the Spring Initializr:
+
+====
+[source,java]
+----
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+----
+====
+
+The `bootJar` task tries to create an executable jar, and that requires a `main()` method.
+As a result, you need to disable the `bootJar` task and enable the `jar` task (which
+creates an ordinary jar rather than an executable jar).
+
+The following listing shows the final `build.gradle` file for the Library project:
+
+====
+[src,java]
+----
+include::complete/library/build.gradle[]
+----
+====
 
 == Create a Service Component
 
-The library will provide a `MyService` class that can be used by applications that depend on the library:
+The library will provide a `MyService` class that can be used by applications. The
+following listing (from
+`library/src/main/java/com/example/multimodule/service/MyService.java`) shows the
+`MyService` class:
 
-`library/src/main/java/hello/service/MyService.java`
+====
 [source,java]
 ----
-include::complete/library/src/main/java/hello/service/MyService.java[]
+include::complete/library/src/main/java/com/example/multimodule/service/MyService.java[]
 ----
+====
 
-To make it configurable in a standard Spring Boot idiom (with `application.properties`) you can also add a `@ConfigurationProperties` class:
+To make it configurable in the standard Spring Boot idiom (with `application.properties`),
+you can also add a `@ConfigurationProperties` class. The `ServiceProperties` class (from
+`library/src/main/java/com/example/multimodule/service/ServiceProperties.java`) fills that
+need:
 
-`library/src/main/java/hello/service/ServiceProperties.java`
+====
 [source,java]
 ----
-include::complete/library/src/main/java/hello/service/ServiceProperties.java[]
+include::complete/library/src/main/java/com/example/multimodule/service/ServiceProperties.java[]
 ----
+====
 
-You don't have to do it this way: a library might just provide pure Java APIs, and no Spring features. In that case the application that consumes the library would need to provide the configuration itself.
+You need not do it this way. A library might merely provide pure Java APIs and no Spring
+features. In that case, the application that consumes the library would need to provide
+the configuration itself.
 
 == Testing the Service Component
 
-You will want to write unit tests for your library components. If you are providing re-usable Spring configuration as part of the library, you might also want to write an integration test, to make sure that the configuration works. To do that you can use JUnit and the `@SpringBootTest` annotation. For example:
+You will want to write unit tests for your library components. If you provide re-usable
+Spring configuration as part of the library, you might also want to write an integration
+test, to make sure that the configuration works. To do that, you can use JUnit and the
+`@SpringBootTest` annotation. The following listing (from
+`library/src/test/java/com/example/multimodule/service/MyServiceTest.java`) shows how to
+do so:
 
-`library/src/test/java/hello/service/MyServiceTest.java`
+====
 [source,java]
 ----
-include::complete/library/src/test/java/hello/service/MyServiceTest.java[]
+include::complete/library/src/test/java/com/example/multimodule/service/MyServiceTest.java[]
 ----
+====
 
-NOTE: In the sample above we have configured the `service.message` for the test using the default attribute of the `@SpringBootTest` annotation. It is *not* advisable to put `application.properties` in a library because there might be a clash at runtime in the application that uses it (only one `application.properties` is ever loaded from the classpath). You *could* put `application.properties` in the test classpath, but not include it in the jar, for instance by placing it in `src/test/resources`.
+NOTE: In the preceding listing, we have configured the `service.message` for the test by
+using the default attribute of the `@SpringBootTest` annotation. We do *not* recommend
+putting `application.properties` in a library, because there might be a clash at runtime
+with the application that uses the library (only one `application.properties` is ever
+loaded from the classpath). You *could* put `application.properties` in the test classpath
+but not include it in the jar (for instance, by placing it in `src/test/resources`).
 
-== Create an Application Project
+== Create the Application Project
 
-=== Create the directory structure
+The Application project uses the Library project, which offers a service that other
+projects can use.
 
-In a the "application" directory, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello/app` on *nix systems:
+=== Create the Directory Structure
+
+In the `application` directory, create the following subdirectory structure (for
+example, with `mkdir -p src/main/java/com/example/multimodule/application` on *nix
+systems):
 
     └── src
         └── main
             └── java
-                └── hello
-                    └── app
+                └── com
+                    └── example
+                        └── multimodule
+                            └── application
 
-Do not use the same package as the library (or a parent of the library package) unless you want to include all Spring components in the library by `@ComponentScan` by default in the application. Now comes the build configuration:
+Do not use the same package as the library (or a parent of the library package) unless you
+want to include all Spring components in the library by `@ComponentScan` in the
+application.
 
-[[reveal-gradle]]
-[.reveal-gradle]
-== Gradle Configuration for Application
+[[setting-up-the-application-project]]
+=== Setting up the Application Project
 
-[[reveal-gradle]]
-[.use-gradle]
-== Gradle Configuration for Application
+For the Application project, you need the Spring Web and Spring Boot Actuator
+dependencies. The following image shows the Initializr set up for the Application project:
 
-`application/build.gradle`
-// AsciiDoc source formatting doesn't support groovy, so using java instead
-[source,java]
-----
-include::initial/application/build.gradle[]
-----
+image::images/initializr-application.png[]
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-gradle-plugin.adoc[]
+NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
+can also use Gradle. It also shows values of `com.example` and `multi-module-application`
+as the Group and Artifact, respectively. You will use those values throughout the rest of
+this sample.
 
-[[reveal-maven]]
-[.reveal-maven]
-== Maven Configuration for Application
+The following listing shows the `pom.xml` file that is created when you choose Maven:
 
-[[use-maven]]
-[.use-maven]
-== Maven Configuration for Application
-
-`application/pom.xml`
-[source,xml]
+====
+[src,xml]
 ----
 include::initial/application/pom.xml[]
 ----
+====
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-maven-plugin.adoc[]
+The following listing shows the `build.gradle` file that is created when you choose Gradle:
+
+====
+[src,java]
+----
+include::initial/application/build.gradle[]
+----
+====
+
+==== Adding the Library Dependency
+
+The Application project needs to have a dependency on the Library project. You need to
+modify your Application build file accordingly.
+
+For Maven, add the following dependency:
+
+====
+[source,xml]
+----
+<dependency>
+  <groupId>com.example</groupId>
+  <artifactId>gs-multi-module-library</artifactId>
+  <version>${project.version}</version>
+</dependency>
+----
+====
+
+The following listing shows the finished `pom.xml` file:
+
+====
+[source,xml]
+----
+include::complete/application/pom.xml[]
+----
+====
+
+For Gradle, add the following dependency:
+
+====
+[source,java]
+----
+compile project(':library')
+----
+====
+
+The following listing shows the finished `build.gradle` file:
+
+====
+[source,xml]
+----
+include::complete/application/build.gradle[]
+----
+====
 
 == Write the Application
 
-The main class in the application can be a `@RestController` that uses the `Service` from the library to render a message. For example:
+The main class in the application can be a `@RestController` that uses the `Service` from
+the library to render a message. The following listing (from
+`application/src/main/java/com/example/multimodule/application/DemoApplication.java`)
+shows such a class:
 
-`application/src/main/java/hello/app/DemoApplication.java`
+====
 [source,java]
 ----
-include::complete/application/src/main/java/hello/app/DemoApplication.java[]
+include::complete/application/src/main/java/com/example/multimodule/application/DemoApplication.java[]
 ----
+====
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-application.adoc[]
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-application-new-path.adoc[]
 
-Because `DemoApplication` is inside a different package (`hello.app`) than `MyService` (`hello.service`), `@SpringBootApplication` won't detect it initially. There are different ways to allow `MyService to be picked up:
+Because `DemoApplication` is inside a different package
+(`com.example.multimodule.application`) than `MyService`
+(`com.example.multimodule.service`), `@SpringBootApplication` cannot automatically detect
+it. There are different ways to let `MyService be picked up:
 
 * Import it directly with `@Import(MyService.class)`.
-* Fetch everything from it's package using `@SpringBootApplication(scanBasePackageClasses={...})`.
-* The method this guide uses--specifying the parent package by name, `hello`.
+* Fetch everything from its package by using
+`@SpringBootApplication(scanBasePackageClasses={...})`.
+* Specifying the parent package by name: `com.example.multimodule`. (This guide uses this
+  method)
 
-NOTE: If your application also uses JPA or Spring Data, note that the `@EntityScan` and `@EnableJpaRepositories` (and friends) annotations only inherit their base package from `@SpringBootApplication` when not explicitly specified. I.e. once you specify `scanBasePackageClasses` or `scanBasePackages` you might also have to also explicitly provide `@EntityScan` and `@EnableJpaRepositories` with their package scans explicitly configured.
+NOTE: If your application also uses JPA or Spring Data, the `@EntityScan` and
+`@EnableJpaRepositories` (and related) annotations inherit only their base package from
+`@SpringBootApplication` when not explicitly specified. That is, once you specify
+`scanBasePackageClasses` or `scanBasePackages`, you might also have to also explicitly use
+`@EntityScan` and `@EnableJpaRepositories` with their package scans explicitly configured.
 
-== Create the `application.properties` file
+== Create the `application.properties` File
 
-We need to provide a message for the service in the library via `application.properties`. In the sources folder, you just need to create a file `src/main/resources/application.properties`:
+You need to provide a message for the service in the library in `application.properties`.
+In the source folder, you need to create a file named
+`src/main/resources/application.properties`. The following listing shows a file that would
+work:
 
+====
 [source, java]
 ----
 include::complete/application/src/main/resources/application.properties[]
 ----
+====
 
-== Test the application
+== Test the Application
 
-Test the end-to-end result by starting the application. You can start the application in your IDE quite easily, or follow the instructions below to use the command line.  Visit the client app in the browser, `http://localhost:8080/`. There, you should see the String `Hello World` reflected in the response.
+Test the end-to-end result by starting the application. You can start the application in
+your IDE or use the command line. Once the application is running, visit the client
+application in the browser, at `http://localhost:8080/`. There, you should see
+`Hello, World` reflected in the response.
 
-[[reveal-gradle]]
-[.reveal-gradle]
-=== Gradle Command Line to Run Application
+If you use Gradle, the following command (really two commands run in sequence) will first
+build the library and then run the application:
 
-[[reveal-gradle]]
-[.use-gradle]
-=== Gradle Command Line to Run Application
+====
+[source,bash]
+----
+$ ./gradlew build && ./gradlew :application:bootRun
+----
+====
 
-Build the library first and then run the application. From the top level:
+If you use Maven, the following command (really two commands run in sequence) will first
+build the library and then run the application:
 
-    $ ./gradlew build && ./gradlew :application:bootRun
-
-[[reveal-maven]]
-[.reveal-maven]
-=== Maven Command Line to Run Application
-
-[[use-maven]]
-[.use-maven]
-=== Maven Command Line to Run Application
-
-Build the library first and then run the application. From the top level:
-
-    $ ./mvnw install && ./mvnw spring-boot:run -pl application
-
+====
+[source,bash]
+----
+$ ./mvnw install && ./mvnw spring-boot:run -pl application
+----
+====
 == Summary
-Congratulations! You've just used Spring Boot to create a re-usable library, and then used it to build an application.
+
+Congratulations! You have used Spring Boot to create a re-usable library and then used
+that library to build an application.
 
 == See Also
 

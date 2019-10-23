@@ -292,7 +292,7 @@ For Maven, add the following dependency:
 ----
 <dependency>
   <groupId>com.example</groupId>
-  <artifactId>gs-multi-module-library</artifactId>
+  <artifactId>multi-module-library</artifactId>
   <version>${project.version}</version>
 </dependency>
 ----
@@ -311,6 +311,8 @@ For Gradle, add the following dependency:
 
 ====
 [source,java]
+----
+implementation files('../library/target/multi-module-library-0.0.1-SNAPSHOT.jar')
 ----
 compile project(':library')
 ----

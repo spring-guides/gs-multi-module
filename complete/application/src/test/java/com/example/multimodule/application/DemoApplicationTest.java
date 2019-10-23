@@ -1,16 +1,15 @@
 package com.example.multimodule.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.is;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.multimodule.service.MyService;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTest {
 
@@ -19,7 +18,7 @@ public class DemoApplicationTest {
 
     @Test
     public void contextLoads() {
-        assertThat(myService).isNotNull();
+        assertThat(myService.message() != null, is(true));
     }
 
 }

@@ -1,7 +1,6 @@
 package com.example.multimodule.application;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +17,7 @@ public class DemoApplicationTest {
 
     @Test
     public void contextLoads() {
-        assertThat(myService.message() != null, is(true));
+        assertThat(myService.message() != null);
     }
 
 }

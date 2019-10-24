@@ -314,8 +314,6 @@ For Gradle, add the following dependency:
 ----
 implementation project(':library')
 ----
-compile project(':library')
-----
 ====
 
 The following listing shows the finished `build.gradle` file:

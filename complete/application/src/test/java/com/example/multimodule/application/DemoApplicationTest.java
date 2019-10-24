@@ -17,7 +17,7 @@ public class DemoApplicationTest {
 
     @Test
     public void contextLoads() {
-        assertThat(myService.message() != null);
+        assertThat(myService.message()).isNotNull();
     }
 
 }

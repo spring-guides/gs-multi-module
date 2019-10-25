@@ -1,7 +1,6 @@
 package com.example.multimodule.service;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,7 @@ public class MyServiceTest {
 
     @Test
     public void contextLoads() {
-        assertThat(myService.message() != null, is(true));
+        assertThat(myService.message()).isNotNull();
     }
 
     @SpringBootApplication

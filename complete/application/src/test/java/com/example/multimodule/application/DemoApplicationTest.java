@@ -12,12 +12,12 @@ import com.example.multimodule.service.MyService;
 @SpringBootTest
 public class DemoApplicationTest {
 
-    @Autowired
-    private MyService myService;
+	@Autowired
+	private MyService myService;
 
-    @Test
-    public void contextLoads() {
-        assertThat(myService.message()).isNotNull();
-    }
+	@Test
+	public void contextLoads() {
+		assertThat(myService.message()).isNotNull();
+	}
 
 }

@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoApplication {
 
-    private final MyService myService;
+	private final MyService myService;
 
-    public DemoApplication(MyService myService) {
-        this.myService = myService;
-    }
+	public DemoApplication(MyService myService) {
+		this.myService = myService;
+	}
 
-    @GetMapping("/")
-    public String home() {
-        return myService.message();
-    }
+	@GetMapping("/")
+	public String home() {
+		return myService.message();
+	}
 
-    public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
 }

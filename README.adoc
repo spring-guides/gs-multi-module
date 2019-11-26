@@ -148,7 +148,7 @@ To tell Gradle to not build an executable jar for the Library project, you must 
 following blocks to the `build.gradle` created by the Spring Initializr:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 bootJar {
 	enabled = false
@@ -181,7 +181,7 @@ following listing (from
 `MyService` class:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/library/src/main/java/com/example/multimodule/service/MyService.java[]
 ----
@@ -193,7 +193,7 @@ you can also add a `@ConfigurationProperties` class. The `ServiceProperties` cla
 need:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/library/src/main/java/com/example/multimodule/service/ServiceProperties.java[]
 ----
@@ -213,7 +213,7 @@ test, to make sure that the configuration works. To do that, you can use JUnit a
 do so:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/library/src/test/java/com/example/multimodule/service/MyServiceTest.java[]
 ----
@@ -310,7 +310,7 @@ include::complete/application/pom.xml[]
 For Gradle, add the following dependency:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 implementation project(':library')
 ----
@@ -333,7 +333,7 @@ the library to render a message. The following listing (from
 shows such a class:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/application/src/main/java/com/example/multimodule/application/DemoApplication.java[]
 ----

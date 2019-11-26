@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 @EnableConfigurationProperties(ServiceProperties.class)
 public class MyService {
 
-    private final ServiceProperties serviceProperties;
+	private final ServiceProperties serviceProperties;
 
-    public MyService(ServiceProperties serviceProperties) {
-        this.serviceProperties = serviceProperties;
-    }
+	public MyService(ServiceProperties serviceProperties) {
+		this.serviceProperties = serviceProperties;
+	}
 
-    public String message() {
-        return this.serviceProperties.getMessage();
-    }
+	public String message() {
+		return this.serviceProperties.getMessage();
+	}
 }

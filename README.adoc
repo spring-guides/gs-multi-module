@@ -135,6 +135,16 @@ include::initial/library/build.gradle[]
 
 ==== Adjusting the Library Project
 
+If you generated the Library project from `start.spring.io` it will contain a wrapper script
+for the build system (`mvnw` or `gradlew` depending on the choice you made). You can move that
+script and its associated configuration up to the root directory:
+
+[source]
+----
+$ mv mvnw* .mvn ..
+$ mv gradlew* gradle ..
+----
+
 The Library project has no class with a main method (because it is not an application).
 Consequently, you have to tell the build system to not try to build an executable jar for
 the Library project. (By default, the Spring Initializr builds executable projects.)
@@ -300,6 +310,14 @@ The following listing shows the `build.gradle` file that is created when you cho
 include::initial/application/build.gradle[]
 ----
 ====
+
+You can delete the `mvnw` and/or `gradlew` wrappers and their associated configuration files:
+
+[source]
+----
+$ rm -rf mvnw* .mvn
+$ rm -rf gradlew* gradle
+----
 
 ==== Adding the Library Dependency
 

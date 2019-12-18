@@ -24,7 +24,28 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 == Create a Root Project
 
 This guide walks through building two projects, one of which is a dependency to the other.
-Consequently, you need to create two child projects under a root project.
+Consequently, you need to create two child projects under a root project. But first, create
+the build configuration at the top level. For Maven you will want a `pom.xml` with `<modules>`
+listing the subdirectories:
+
+====
+[src,xml]
+----
+include::complete/pom.xml[]
+----
+====
+
+and for Gradle you will want a `settngs.gradle` including the same directories:
+
+====
+[src,groovy]
+----
+include::complete/settings.gradle[]
+----
+====
+
+and (optionally) you could include an empty `build.gradle` (to help IDEs identify the root directory).
+
 
 === Create the Directory Structure
 

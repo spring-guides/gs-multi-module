@@ -19,6 +19,7 @@ build/
 .classpath
 .project
 .settings
+.attach_pid*
 
 # IntelliJ IDEA Files #
 

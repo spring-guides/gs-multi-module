@@ -20,7 +20,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_system_intro.adoc[]
 
-[[scratch]]
+[#scratch]
 == Create a Root Project
 
 This guide walks through building two projects, one of which is a dependency to the other.
@@ -37,7 +37,7 @@ subdirectory structure (for example, with `mkdir library application` on *nix sy
 In the root of the project, you will need to set up a build system, and this guide shows
 you how to use Maven or Gradle.
 
-[[initial]
+[#initial]
 == Starting with Spring Initializr
 
 For all Spring applications, you should start with the https://start.spring.io[Spring
@@ -80,7 +80,7 @@ to import the dependency management as a Bill of Materials
 https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies[(BOM)]
 in the `<dependencyManagement/>` section of the `pom.xml` file.
 
-[[setting-up-the-library-project]]
+[#setting-up-the-library-project]
 === Setting up the Library Project
 
 For the Library project, you need not add dependencies. The basic `spring-boot-starter`
@@ -249,7 +249,7 @@ Do not use the same package as the library (or a parent of the library package) 
 want to include all Spring components in the library by `@ComponentScan` in the
 application.
 
-[[setting-up-the-application-project]]
+[#setting-up-the-application-project]
 === Setting up the Application Project
 
 For the Application project, you need the Spring Web and Spring Boot Actuator

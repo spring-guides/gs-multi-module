@@ -35,7 +35,7 @@ include::complete/pom.xml[]
 ----
 ====
 
-and for Gradle you will want a `settngs.gradle` including the same directories:
+and for Gradle you will want a `settings.gradle` including the same directories:
 
 ====
 [src,groovy]

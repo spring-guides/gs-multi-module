@@ -4,7 +4,7 @@
 :project_id: draft-gs-multi-module
 
 This guide shows you how to create a multi-module project with Spring Boot. The project
-will have have a library jar and a main application that uses the library. You could also
+will have a library jar and a main application that uses the library. You could also
 use it to see how to build a library (that is, a jar file that is not an application) on
 its own.
 

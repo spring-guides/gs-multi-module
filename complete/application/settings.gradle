@@ -1,1 +1,2 @@
 rootProject.name = 'multi-module-application'
+includeBuild '../library'

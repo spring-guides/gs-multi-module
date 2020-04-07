@@ -1,7 +1,7 @@
 :toc:
 :icons: font
 :source-highlighter: prettify
-:project_id: draft-gs-multi-module
+:project_id: -gs-multi-module
 
 This guide shows you how to create a multi-module project with Spring Boot. The project
 will have a library jar and a main application that uses the library. You could also
@@ -111,7 +111,7 @@ for the Library project:
 image::images/initializr-library.png[]
 
 NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
-can also use Gradle. It also shows values of `com.example` and `multi-module-library`
+can also use Gradle. It also shows values of `com.example` and `library`
 as the Group and Artifact, respectively. You will use those values throughout the rest of
 this sample.
 
@@ -289,7 +289,7 @@ dependencies. The following image shows the Initializr set up for the Applicatio
 image::images/initializr-application.png[]
 
 NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
-can also use Gradle. It also shows values of `com.example` and `multi-module-application`
+can also use Gradle. It also shows values of `com.example` and `application`
 as the Group and Artifact, respectively. You will use those values throughout the rest of
 this sample.
 
@@ -331,7 +331,7 @@ For Maven, add the following dependency:
 ----
 <dependency>
   <groupId>com.example</groupId>
-  <artifactId>multi-module-library</artifactId>
+  <artifactId>library</artifactId>
   <version>${project.version}</version>
 </dependency>
 ----

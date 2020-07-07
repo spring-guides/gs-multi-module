@@ -1,7 +1,7 @@
 :toc:
 :icons: font
 :source-highlighter: prettify
-:project_id: -gs-multi-module
+:project_id: gs-multi-module
 
 This guide shows you how to create a multi-module project with Spring Boot. The project
 will have a library jar and a main application that uses the library. You could also

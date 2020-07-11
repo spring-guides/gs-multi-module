@@ -10,17 +10,15 @@ plugins {
 	id 'io.spring.dependency-management' version "${dependencyManagement}"
 }
 
-allprojects {
-	group = 'com.example'
-	version = '0.0.1-SNAPSHOT'
-	sourceCompatibility = '1.8'
-}
 subprojects {
 
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
 	apply plugin: 'java-library'
-	apply plugin: 'java'
+
+	group = 'com.example'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = '1.8'
 
 	repositories {
 		mavenCentral()
@@ -29,6 +27,7 @@ subprojects {
 	test {
 		useJUnitPlatform()
 	}
+
 }
 
 bootJar {

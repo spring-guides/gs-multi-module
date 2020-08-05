@@ -105,15 +105,7 @@ in the `<dependencyManagement/>` section of the `pom.xml` file.
 === Setting up the Library Project
 
 For the Library project, you need not add dependencies. The basic `spring-boot-starter`
-dependency provides everything you need. The following image shows the Initializr set up
-for the Library project:
-
-image::images/initializr-library.png[]
-
-NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
-can also use Gradle. It also shows values of `com.example` and `library`
-as the Group and Artifact, respectively. You will use those values throughout the rest of
-this sample.
+dependency provides everything you need.
 
 The following listing shows the `pom.xml` file that is created when you choose Maven:
 
@@ -284,14 +276,7 @@ application.
 === Setting up the Application Project
 
 For the Application project, you need the Spring Web and Spring Boot Actuator
-dependencies. The following image shows the Initializr set up for the Application project:
-
-image::images/initializr-application.png[]
-
-NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
-can also use Gradle. It also shows values of `com.example` and `application`
-as the Group and Artifact, respectively. You will use those values throughout the rest of
-this sample.
+dependencies.
 
 The following listing shows the `pom.xml` file that is created when you choose Maven:
 

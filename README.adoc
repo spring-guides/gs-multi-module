@@ -107,7 +107,7 @@ in the `<dependencyManagement/>` section of the `pom.xml` file.
 For the Library project, you need not add dependencies. The basic `spring-boot-starter`
 dependency provides everything you need.
 
-You can get a Maven build file with the necessary dependencies directly from the [Spring Initializr].
+You can get a Maven build file with the necessary dependencies directly from the https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=multi-module-library&name=multi-module-library&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.multi-module-library[Spring Initializr].
 The following listing shows the `pom.xml` file that is created when you choose Maven:
 
 ====
@@ -117,7 +117,7 @@ include::initial/library/pom.xml[]
 ----
 ====
 
-You can get a Gradle build file with the necessary dependencies directly from the [Spring Initializr].
+You can get a Gradle build file with the necessary dependencies directly from the https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.4.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=multi-module-library&name=multi-module-library&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.multi-module-library[Spring Initializr].
 The following listing shows the `build.gradle` file that is created when you choose Gradle:
 
 ====
@@ -280,7 +280,7 @@ application.
 For the Application project, you need the Spring Web and Spring Boot Actuator
 dependencies.
 
-You can get a Maven build file with the necessary dependencies directly from the [Spring Initializr].
+You can get a Maven build file with the necessary dependencies directly from the https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=multi-module-application&name=multi-module-application&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.multi-module-application&dependencies=web,actuator[Spring Initializr].
 The following listing shows the `pom.xml` file that is created when you choose Maven:
 
 ====
@@ -290,7 +290,7 @@ include::initial/application/pom.xml[]
 ----
 ====
 
-You can get a Gradle build file with the necessary dependencies directly from the [Spring Initializr].
+You can get a Gradle build file with the necessary dependencies directly from the https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.4.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=multi-module-application&name=multi-module-application&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.multi-module-application&dependencies=web,actuator[Spring Initializr].
 The following listing shows the `build.gradle` file that is created when you choose Gradle:
 
 ====

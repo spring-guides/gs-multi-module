@@ -35,7 +35,7 @@ include::complete/pom.xml[]
 ----
 ====
 
-and for Gradle you will want a `settings.gradle` including the same directories:
+For Gradle, you will want a `settings.gradle` including the same directories:
 
 ====
 [src,groovy]
@@ -107,6 +107,7 @@ in the `<dependencyManagement/>` section of the `pom.xml` file.
 For the Library project, you need not add dependencies. The basic `spring-boot-starter`
 dependency provides everything you need.
 
+You can get a Maven build file with the necessary dependencies directly from the [Spring Initializr].
 The following listing shows the `pom.xml` file that is created when you choose Maven:
 
 ====
@@ -116,6 +117,7 @@ include::initial/library/pom.xml[]
 ----
 ====
 
+You can get a Gradle build file with the necessary dependencies directly from the [Spring Initializr].
 The following listing shows the `build.gradle` file that is created when you choose Gradle:
 
 ====
@@ -278,6 +280,7 @@ application.
 For the Application project, you need the Spring Web and Spring Boot Actuator
 dependencies.
 
+You can get a Maven build file with the necessary dependencies directly from the [Spring Initializr].
 The following listing shows the `pom.xml` file that is created when you choose Maven:
 
 ====
@@ -287,6 +290,7 @@ include::initial/application/pom.xml[]
 ----
 ====
 
+You can get a Gradle build file with the necessary dependencies directly from the [Spring Initializr].
 The following listing shows the `build.gradle` file that is created when you choose Gradle:
 
 ====

@@ -15,13 +15,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation project(':library')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-test {
-	useJUnitPlatform()
-}
-
-bootJar {
-	enabled = false
 }

@@ -123,12 +123,9 @@ The following listing shows the `build.gradle` file that is created when you cho
 ====
 [src,java]
 ----
-include::initial/build.gradle[]
+include::initial/library/build.gradle[]
 ----
 ====
-
-NOTE: The `build.gradle` file is at in the parent project.
-The child project does not need a `build.gradle` file.
 
 ==== Adjusting the Library Project
 
@@ -197,12 +194,9 @@ The following listing shows the final `build.gradle` file for the Library projec
 ====
 [src,java]
 ----
-include::complete/build.gradle[]
+include::complete/library/build.gradle[]
 ----
 ====
-
-NOTE: The `build.gradle` file is at in the parent project.
-The child project does not need a `build.gradle` file.
 
 == Create a Service Component
 

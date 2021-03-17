@@ -59,18 +59,6 @@ In the root of the project, you will need to set up a build system, and this gui
 you how to use Maven or Gradle.
 
 [#initial]
-== Starting with Spring Initializr
-
-For all Spring applications, you should start with the https://start.spring.io[Spring
-Initializr]. The Initializr offers a fast way to pull in all the dependencies you need for
-an application and does a lot of the set up for you. For this guide, you need to run the
-Spring Initializr  twice, once for the Library and once for the Application. The following
-topics describe how to use the Spring Initializr for each of the two projects in this
-guide:
-
-* <<setting-up-the-library-project>>
-* <<setting-up-the-application-project>>
-
 == Create the Library Project
 
 One of the two projects serves as a library that the other project (the application) will
@@ -107,7 +95,7 @@ in the `<dependencyManagement/>` section of the `pom.xml` file.
 For the Library project, you need not add dependencies. The basic `spring-boot-starter`
 dependency provides everything you need.
 
-You can get a Maven build file with the necessary dependencies directly from the https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=multi-module-library&name=multi-module-library&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.multi-module-library[Spring Initializr].
+You can get a Maven build file with the necessary dependencies directly from the https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.3.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.example&artifactId=multi-module-library&name=multi-module-library&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.multi-module-library[Spring Initializr].
 The following listing shows the `pom.xml` file that is created when you choose Maven:
 
 ====
@@ -117,7 +105,7 @@ include::initial/library/pom.xml[]
 ----
 ====
 
-You can get a Gradle build file with the necessary dependencies directly from the https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.4.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=multi-module-library&name=multi-module-library&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.multi-module-library[Spring Initializr].
+You can get a Gradle build file with the necessary dependencies directly from the https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.4.3.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.example&artifactId=multi-module-library&name=multi-module-library&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.multi-module-library[Spring Initializr].
 The following listing shows the `build.gradle` file that is created when you choose Gradle:
 
 ====

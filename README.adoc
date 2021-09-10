@@ -163,19 +163,22 @@ following blocks to the `build.gradle` created by the Spring Initializr:
 ====
 [source,java,tabsize=2]
 ----
-bootJar {
-	enabled = false
+plugins {
+	id 'org.springframework.boot' version '2.5.2' apply false
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	// ... other plugins
 }
 
-jar {
-	enabled = true
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	}
 }
 ----
 ====
 
 The `bootJar` task tries to create an executable jar, and that requires a `main()` method.
-As a result, you need to disable the `bootJar` task and enable the `jar` task (which
-creates an ordinary jar rather than an executable jar).
+As a result, you need to disable it by disabling the the Spring Boot plugin, while keeping it for its dependency management features.
 
 The following listing shows the final `build.gradle` file for the Library project:
 

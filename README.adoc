@@ -178,7 +178,7 @@ dependencyManagement {
 ====
 
 The `bootJar` task tries to create an executable jar, and that requires a `main()` method.
-As a result, you need to disable it by disabling the the Spring Boot plugin, while keeping it for its dependency management features.
+As a result, you need to disable it by disabling the Spring Boot plugin, while keeping it for its dependency management features.
 
 The following listing shows the final `build.gradle` file for the Library project:
 

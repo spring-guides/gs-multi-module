@@ -166,7 +166,7 @@ To tell Gradle to not build an executable jar for the Library project, you must 
 following blocks to the `build.gradle` created by the Spring Initializr:
 
 ====
-[source,java,tabsize=2]
+[source,groovy,tabsize=2]
 ----
 plugins {
 	id 'org.springframework.boot' version '3.2.2' apply false
@@ -347,7 +347,7 @@ include::complete/application/pom.xml[]
 For Gradle, add the following dependency:
 
 ====
-[source,java,tabsize=2]
+[source,groovy,tabsize=2]
 ----
 implementation project(':library')
 ----
@@ -356,7 +356,7 @@ implementation project(':library')
 The following listing shows the finished `build.gradle` file:
 
 ====
-[source,xml]
+[source,groovy]
 ----
 include::complete/application/build.gradle[]
 ----
@@ -403,7 +403,7 @@ In the source folder, you need to create a file named
 work:
 
 ====
-[source, java]
+[source,properties]
 ----
 include::complete/application/src/main/resources/application.properties[]
 ----

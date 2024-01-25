@@ -15,7 +15,7 @@ and then include the service in a web application that uses the library as a dep
 
 == What You Need
 
-:java_version: 1.8
+:java_version: 17
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/how_to_complete_this_guide.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_system_intro.adoc[]
@@ -127,6 +127,11 @@ $ mv mvnw* .mvn ..
 $ mv gradlew* gradle ..
 ----
 
+It is better that the library depends on the most narrowed dependencies, and not a
+starter. For our own use there `org.springframework.boot:spring-boot` has all the
+code that we need. Removing the `-starter` of the existing entry makes sure the
+library doesn't bring up too much dependencies.
+
 The Library project has no class with a main method (because it is not an application).
 Consequently, you have to tell the build system to not try to build an executable jar for
 the Library project. (By default, the Spring Initializr builds executable projects.)
@@ -164,8 +169,8 @@ following blocks to the `build.gradle` created by the Spring Initializr:
 [source,java,tabsize=2]
 ----
 plugins {
-	id 'org.springframework.boot' version '2.5.2' apply false
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.boot' version '3.2.2' apply false
+	id 'io.spring.dependency-management' version '1.1.4'
 	// ... other plugins
 }
 

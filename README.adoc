@@ -185,6 +185,19 @@ dependencyManagement {
 The `bootJar` task tries to create an executable jar, and that requires a `main()` method.
 As a result, you need to disable it by disabling the the Spring Boot plugin, while keeping it for its dependency management features.
 
+Also, now that we have disabled the Spring Boot plugin, it no longer automatically configures
+the `JavaCompiler` task to enable the `-parameters` option. This is important if you are
+using an expression that refers to a parameter name. The following enables this option:
+
+====
+[source,groovy,tabsize=2]
+----
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs.add("-parameters")
+}
+----
+====
+
 The following listing shows the final `build.gradle` file for the Library project:
 
 ====
